@@ -1,6 +1,9 @@
-var location1 =  Math.floor(Math.random() * 5);
-var location2 = location1 + 1;
-var location3 = location2 + 1;
+var playMap = new Array(7).fill(false);
+var shipLocation =  Math.floor(Math.random() * 5);
+
+for(var i = 0; i < 3; i++){
+    playMap[shipLocation + i] = true;
+}
 
 var guess;
 var hits = 0;
@@ -20,28 +23,18 @@ while(!isSunk){
     }
     else{
         guesses++;
-        if (guess == location1){
+        if (playMap[guess]){
             alert("There is a hit!");
-            location1 = 7;
+            playMap[guess] = false;
             hits++;
-        }
-        else if (guess == location2){
-            alert("There is a hit!");
-            location2 = 7;
-            hits++;
-        }
-        else if (guess == location3){
-            alert("There is a hit!");
-            location3 = 7;
-            hits++;
+
+            if (hits == 3){
+                isSunk = true;
+                alert("Ship is sunk! - " + guesses + " shots was done");
+            }
         }
         else {
             alert("Miss!");
-        }
-
-        if (hits == 3){
-            isSunk = true;
-            alert("Ship is sunk! - " + guesses + " shots was done");
         }
     }
 }
